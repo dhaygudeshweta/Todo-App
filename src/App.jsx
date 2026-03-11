@@ -6,18 +6,29 @@ import './App.css'
 function App() {
   const [task,setTask]=useState('');
   const [tasks,setTasks]=useState([]);
+  const [editIndex,setEditIndex]=useState(null);
   const handleTask=(value)=>{
 
     setTask(value);
     
   }
   const addTask=(e)=>{
-    e.preventDefault();
-    setTasks([...tasks,{text:task,completed:false}]);
-    setTask('');
-    console.log(task);
+    // e.preventDefault();
+    // setTasks([...tasks,{text:task,completed:false}]);
+    // setTask('');
+    // console.log(task);
+    if(task.trim()==="")return;
+    if(editIndex!==null){
+      const updatedTasks=[...tasks];
+      updatedTasks[editIndex].text=task;
+      setTasks(updatedTasks);
+      setEditIndex(null);}else{
+        setTasks([...tasks,{text:task,completed:false}]);
+      }
+      setTask("");
+    };
 
-  }
+  
   const deleteTask=(indexToDelete)=>{
     const newTasks=tasks.filter((t,index)=>index!==indexToDelete);
     setTasks(newTasks);
@@ -28,11 +39,15 @@ function App() {
     newTasks[index].completed=!newTasks[index].completed;
     setTasks(newTasks);
   };
+  const editTask=(index)=>{
+    setTask(tasks[index].text);
+    setEditIndex(index);
+  };
   
 
 
   return (
-    <form >
+    
     
     <div className='container'>
       <h1>To do app</h1>
@@ -45,7 +60,7 @@ function App() {
       
       
         </div>
-        </form>
+        
    
   );
 }
