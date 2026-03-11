@@ -22,19 +22,25 @@ function App() {
     const newTasks=tasks.filter((t,index)=>index!==indexToDelete);
     setTasks(newTasks);
   };
+
+  const toggleComplete=(index)=>{
+    const newTasks=[...tasks];
+    newTasks[index].completed=!newTasks[index].completed;
+    setTasks(newTasks);
+  };
   
 
 
   return (
-    <form onSubmit={addtask}>
+    <form >
     
     <div className='container'>
       <h1>To do app</h1>
 
       <input  value={task}onChange={(event)=>handleTask(event.target.value)} type='text' placeholder='enter your tasks'/> 
-      <button>Add Task</button>
+      <button onClick={addTask}>Add Task</button>
       <ul>{
-        tasks.map((t,index)=>(<li key={index}>{t}<button onClick={()=>deleteTask(index)}>Delete</button></li>))
+        tasks.map((t,index)=>(<li key={index} style={{textDecoration:t.comptoggleleted?"line-through":"none",cursor:"pointer",}}onClick={()=>toggleComplete(index)}>{t.text}<button onClick={()=>deleteTask(index)}>Delete</button></li>))
 }</ul>
       
       
