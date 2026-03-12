@@ -55,8 +55,18 @@ function App() {
       <input  value={task}onChange={(event)=>handleTask(event.target.value)} type='text' placeholder='enter your tasks'/> 
       <button onClick={addTask}>Add Task</button>
       <ul>{
-        tasks.map((t,index)=>(<li key={index} style={{textDecoration:t.comptoggleleted?"line-through":"none",cursor:"pointer",}}onClick={()=>toggleComplete(index)}>{t.text}<button onClick={()=>deleteTask(index)}>Delete</button></li>))
+        tasks.map((t,index)=>
+        (<li key={index} style={{textDecoration:t.completed? "line-through":"none",cursor:"pointer"}}><span>{t.text}</span>
+        <button onClick={()=>editTask(index)}>EditTask</button>
+        <button onClick={()=> deleteTask(index)}>Delete</button>
+        <button onClick={()=>
+        toggleComplete(index)}>Complete</button>
+        </li>))
+        
+        
 }</ul>
+<button onClick={()=>
+        toggleComplete(index)}>Complete</button>
       
       
         </div>
